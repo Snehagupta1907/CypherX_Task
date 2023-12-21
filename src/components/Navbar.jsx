@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-white text-white">
+    <nav className="flex justify-between items-center py-2 px-4 bg-white text-white">
       <MultilevelDropdown />
 
       <div className="flex items-center">
@@ -20,7 +20,7 @@ const Navbar = () => {
           onClick={handleThemeToggle}
           className="text-black focus:outline-none"
         >
-          {isDarkMode ? <BiSun size={24} /> : <BiMoon size={24} />}
+          {isDarkMode ? <BiSun size={20} /> : <BiMoon size={20} />}
         </button>
       </div>
     </nav>
