@@ -1,65 +1,81 @@
-// TicketList.js
-import { useState } from "react";
+
 import { useCardContext } from "../context/CardContext";
 import TicketCard from "./TicketCard";
-import Navbar from "./Navbar";
-import Top from "./Top";
 
 const TicketList = () => {
-  const { data } = useCardContext();
-  const { tickets, users } = data;
+  const { data, grouping } = useCardContext();
 
-  const [groupBy, setGroupBy] = useState("Status");
-  const [sortBy, setSortBy] = useState("Title");
-
-  const groupedAndSortedTickets = () => {
-    let groupedTickets = {};
-    tickets.forEach((ticket) => {
-      const groupKey =
-        groupBy === "User" ? getUserById(ticket.userId).name : ticket[groupBy];
-      if (!groupedTickets[groupKey]) {
-        groupedTickets[groupKey] = [];
-      }
-      groupedTickets[groupKey].push(ticket);
-    });
-
-    Object.keys(groupedTickets).forEach((groupKey) => {
-      groupedTickets[groupKey] = groupedTickets[groupKey].sort((a, b) => {
-        if (sortBy === "Priority") {
-          return b.priority - a.priority;
-        } else if (sortBy === "Title") {
-          return a.title.localeCompare(b.title);
-        }
-        return 0;
-      });
-    });
-
-    return groupedTickets;
-  };
-
-  const getUserById = (userId) => {
-    return users.find((user) => user.id === userId) || { name: "Unknown" };
-  };
-
-  const renderTickets = () => {
-    const groupedAndSorted = groupedAndSortedTickets();
-
-    return Object.keys(groupedAndSorted).map((groupKey) => (
-      <div key={groupKey} className="text-white-A700">
-        {groupedAndSorted[groupKey].map((ticket) => (
-          <TicketCard key={ticket.id} {...ticket} />
-        ))}
-      </div>
-    ));
-  };
+  // Filter and group tickets based on the selected grouping
+  const groupedTickets = groupTickets(data.tickets, grouping,data.users);
 
   return (
-    <div>
-      <Navbar setGroupBy={setGroupBy} setSortBy={setSortBy} />
-      <Top/>
-      {renderTickets()}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {groupedTickets.map((group) => (
+        <div key={group.key}>
+          <h2 className="text-xl font-bold">{group.key}</h2>
+          {group.tickets.map((ticket) => (
+            <TicketCard key={ticket.id} {...ticket} />
+          ))}
+        </div>
+      ))}
     </div>
   );
+};
+
+// Helper function to group tickets based on the selected grouping
+const groupTickets = (tickets, grouping,users) => {
+  // Implement logic to group tickets based on the selected grouping
+  switch (grouping) {
+    case "Status":
+      return groupByStatus(tickets);
+    case "User":
+      return groupByUser(tickets,users);
+    case "Priority":
+      return groupByPriority(tickets);
+    default:
+      return [];
+  }
+};
+
+const groupByStatus = (tickets) => {
+  // Placeholder logic to group by status
+  const grouped = {};
+  tickets.forEach((ticket) => {
+    const status = ticket.status || "Unknown";
+    if (!grouped[status]) {
+      grouped[status] = { key: status, tickets: [] };
+    }
+    grouped[status].tickets.push(ticket);
+  });
+  return Object.values(grouped);
+};
+
+const groupByUser = (tickets, users) => {
+    // Placeholder logic to group by user
+    const grouped = {};
+    tickets.forEach((ticket) => {
+      const user = ticket.userId ? ticket.userId : "Unknown";
+      const userName = users.find((u) => u.id === user)?.name || "Unknown";
+      if (!grouped[user]) {
+        grouped[user] = { key: userName, tickets: [] };
+      }
+      grouped[user].tickets.push(ticket);
+    });
+    return Object.values(grouped);
+  };
+  
+
+const groupByPriority = (tickets) => {
+  // Placeholder logic to group by priority
+  const grouped = {};
+  tickets.forEach((ticket) => {
+    const priority = ticket.priority || "No Priority";
+    if (!grouped[priority]) {
+      grouped[priority] = { key: priority, tickets: [] };
+    }
+    grouped[priority].tickets.push(ticket);
+  });
+  return Object.values(grouped);
 };
 
 export default TicketList;

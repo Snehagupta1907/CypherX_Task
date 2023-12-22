@@ -30,7 +30,7 @@ const Todo = ({ status, size  }) => {
       break;
   }
 
-  return <IconComponent size={size} />;
+  return <IconComponent size={size} className={`${IconComponent===IoMdPie? 'text-yellow-400':''}`} />;
 };
 
 export default Todo;

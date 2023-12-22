@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
+import { useCardContext } from "../context/CardContext";
+
 
 const MultilevelDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,8 +9,9 @@ const MultilevelDropdown = () => {
   const buttonRef = useRef(null);
   const dropdownRef = useRef(null);
 
-  const [groupBy, setGroupBy] = useState("Status"); // Default grouping option
-  const [sortBy, setSortBy] = useState("Title"); // Default sorting option
+  const { grouping, actions } = useCardContext();
+
+  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -38,6 +41,11 @@ const MultilevelDropdown = () => {
       });
     }
   }, [isOpen]);
+
+  const handleGroupingChange = (event) => {
+    const selectedGrouping = event.target.value;
+    actions.setGrouping(selectedGrouping);
+  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -78,8 +86,8 @@ const MultilevelDropdown = () => {
               <select
                 className="mt-3 mr-3 rounded border border-gray-200 text-gray-900"
                 style={{ width: "90px" }}
-                value={groupBy}
-                onChange={(e) => setGroupBy(e.target.value)}
+                value={grouping}
+                onChange={handleGroupingChange}
               >
                 <option value="Status">Status</option>
                 <option value="User">User</option>
@@ -91,8 +99,6 @@ const MultilevelDropdown = () => {
               <select
                 className="mt-5 mr-3 rounded border border-gray-200 text-gray-900"
                 style={{ width: "90px" }}
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
               >
                 <option value="Title">Title</option>
                 <option value="Priority">Priority</option>

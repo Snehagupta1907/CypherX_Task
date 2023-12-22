@@ -30,7 +30,7 @@ const PriorityIcon = ({priority}) => {
   return (
     
     <div className="border border-gray-200 rounded">
-        <PriorComponent className="text-yellow-400"/>
+        <PriorComponent className={`text-lg ${PriorComponent === TbAlertSquareFilled ? 'text-orange-500' : ''}`}/>
     </div>
   )
 }
