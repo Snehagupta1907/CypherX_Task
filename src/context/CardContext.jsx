@@ -3,7 +3,7 @@ import  { createContext, useContext, useState, useEffect } from 'react';
 const CardContext = createContext();
 
 // eslint-disable-next-line react/prop-types
-const CardProvider = ({ children }) => {
+export const CardProvider = ({ children }) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -25,10 +25,10 @@ const CardProvider = ({ children }) => {
   );
 };
 
-const useCardContext = () => {
+export const useCardContext = () => {
   const context = useContext(CardContext);
 
   return context;
 };
 
-export { CardProvider, useCardContext };
+
