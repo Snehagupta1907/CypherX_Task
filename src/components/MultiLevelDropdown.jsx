@@ -2,18 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { useCardContext } from "../context/CardContext";
 
-
 const MultilevelDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const buttonRef = useRef(null);
   const dropdownRef = useRef(null);
 
-  const [selectedOrdering, setSelectedOrdering] = useState("Title"); 
-
-  const { grouping, actions } = useCardContext();
-
-  
+  const { grouping,ordering, actions } = useCardContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,17 +46,18 @@ const MultilevelDropdown = () => {
 
   const handleOrderingChange = (event) => {
     const selectedOrdering = event.target.value;
-    setSelectedOrdering(selectedOrdering);
+    actions.setOrdering(selectedOrdering);
   };
 
+
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative" }} className="dark:bg-gray-800">
       <button
         ref={buttonRef}
         id="multiLevelDropdownButton"
         onClick={() => setIsOpen((prev) => !prev)}
         data-dropdown-toggle="multi-dropdown"
-        className="text-black bg-white  focus:outline-none rounded-md text-sm px-3 py-2 text-center inline-flex items-center border border-gray-100 shadow-md"
+        className="text-black dark:text-white bg-white dark:bg-gray-700 focus:outline-none rounded-md text-sm px-3 py-2 text-center inline-flex items-center border border-gray-100 dark:border-gray-800 shadow-md"
         type="button"
       >
         <img
@@ -85,13 +81,15 @@ const MultilevelDropdown = () => {
             top: position.top + "px",
             left: position.left + "px",
           }}
-          className=" w-[300px] h-[100px] bg-white rounded-md mt-2 z-50 shadow-md border border-gray-200"
+          className="w-[300px] h-[100px] bg-white dark:bg-gray-800 rounded-md mt-2 z-50 shadow-md border border-gray-200 dark:border-gray-700"
         >
-          <div className=" mb-6">
+          <div className="mb-6">
             <div className="flex justify-between">
-              <label className="mt-3 ml-3 text-gray-500">Grouping</label>
+              <label className="mt-3 ml-3 text-gray-500 dark:text-gray-400">
+                Grouping
+              </label>
               <select
-                className="mt-3 mr-3 rounded border border-gray-200 text-gray-900"
+                className="mt-3 mr-3 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300"
                 style={{ width: "90px" }}
                 value={grouping}
                 onChange={handleGroupingChange}
@@ -102,15 +100,17 @@ const MultilevelDropdown = () => {
               </select>
             </div>
             <div className="flex justify-between">
-              <label className="mt-5 ml-3 text-gray-500">Ordering</label>
+              <label className="mt-5 ml-3 text-gray-500 dark:text-gray-400">
+                Ordering
+              </label>
               <select
-                className="mt-5 mr-3 rounded border border-gray-200 text-gray-900"
+                className="mt-5 mr-3 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300"
                 style={{ width: "90px" }}
-                value={selectedOrdering}
+                value={ordering}
                 onChange={handleOrderingChange}
               >
-                <option value="Title">Title</option>
                 <option value="Priority">Priority</option>
+                <option value="Title">Title</option>
               </select>
             </div>
           </div>

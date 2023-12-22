@@ -11,10 +11,12 @@ const CardContext = createContext();
 const initialState = {
   data: {},
   grouping: "Status",
+  ordering: "Priority", // Add ordering to the initial state
   isLoading: true,
 };
 
 const SET_GROUPING = "SET_GROUPING";
+const SET_ORDERING = "SET_ORDERING"; // Add ordering action type
 const SET_DATA = "SET_DATA";
 const SET_LOADING = "SET_LOADING";
 
@@ -22,6 +24,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SET_GROUPING:
       return { ...state, grouping: action.payload };
+      case SET_ORDERING: // Handle ordering change
+      return { ...state, ordering: action.payload };
     case SET_DATA:
       return { ...state, data: action.payload, isLoading: false };
     case SET_LOADING:
@@ -58,12 +62,18 @@ export const CardProvider = ({ children }) => {
     dispatch({ type: SET_GROUPING, payload: grouping });
   };
 
+  const setOrdering = (ordering) => {
+    dispatch({ type: SET_ORDERING, payload: ordering });
+  };
+
   const value = {
     data: state.data,
     grouping: state.grouping,
+    ordering: state.ordering, // Include ordering in the context
     isLoading: state.isLoading,
     actions: {
       setGrouping,
+      setOrdering,
     },
   };
 
