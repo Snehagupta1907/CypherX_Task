@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect,useReducer } from "react";
+import { createContext, useContext, useState, useEffect, useReducer } from "react";
 
 const CardContext = createContext();
 
@@ -6,11 +6,13 @@ const CardContext = createContext();
 const initialState = {
   data: {},
   grouping: "Status", // default grouping
+  isLoading: true, // default loading state
 };
 
 // Actions
 const SET_GROUPING = "SET_GROUPING";
 const SET_DATA = "SET_DATA";
+const SET_LOADING = "SET_LOADING";
 
 // Reducer function
 const reducer = (state, action) => {
@@ -18,26 +20,33 @@ const reducer = (state, action) => {
     case SET_GROUPING:
       return { ...state, grouping: action.payload };
     case SET_DATA:
-      return { ...state, data: action.payload };
+      return { ...state, data: action.payload, isLoading: false };
+    case SET_LOADING:
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }
 };
 
-// eslint-disable-next-line react/prop-types
 export const CardProvider = ({ children }) => {
-  const [data, setData] = useState({});
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://tfyincvdrafxe7ut2ziwuhe5cm0xvsdu.lambda-url.ap-south-1.on.aws/ticketAndUsers"
-      );
+      dispatch({ type: SET_LOADING, payload: true }); // Set loading to true
 
-      const jsonData = await response.json();
+      try {
+        const response = await fetch(
+          "https://tfyincvdrafxe7ut2ziwuhe5cm0xvsdu.lambda-url.ap-south-1.on.aws/ticketAndUsers"
+        );
 
-      dispatch({ type: SET_DATA, payload: jsonData });
+        const jsonData = await response.json();
+
+        dispatch({ type: SET_DATA, payload: jsonData });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error if needed
+      }
     };
 
     fetchData();
@@ -50,13 +59,21 @@ export const CardProvider = ({ children }) => {
   const value = {
     data: state.data,
     grouping: state.grouping,
+    isLoading: state.isLoading,
     actions: {
       setGrouping,
     },
   };
 
   return (
-    <CardContext.Provider value={value}>{children}</CardContext.Provider>
+    <CardContext.Provider value={value}>
+      {state.isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        // Render children only when data is fetched
+        children
+      )}
+    </CardContext.Provider>
   );
 };
 

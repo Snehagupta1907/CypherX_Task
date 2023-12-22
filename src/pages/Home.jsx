@@ -4,11 +4,13 @@ import Top from "../components/Top";
 
 const Home = () => {
   return (
-    <>     
+    <div>     
       <Navbar/>
-      <Top/>
+      <div className="mx-8 mt-6">
+      {/* <Top/> */}
       <TicketList/>
-    </>
+      </div>
+    </div>
   );
 };
 
