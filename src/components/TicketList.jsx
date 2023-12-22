@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useCardContext } from "../context/CardContext";
 import TicketCard from "./TicketCard";
 import Navbar from "./Navbar";
+import Top from "./Top";
 
 const TicketList = () => {
   const { data } = useCardContext();
@@ -55,6 +56,7 @@ const TicketList = () => {
   return (
     <div>
       <Navbar setGroupBy={setGroupBy} setSortBy={setSortBy} />
+      <Top/>
       {renderTickets()}
     </div>
   );

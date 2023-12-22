@@ -1,11 +1,9 @@
-import Navbar from "../components/Navbar";
-import Top from "../components/Top";
+import TicketList from "../components/TicketList";
 
 const Home = () => {
   return (
-    <>
-      <Navbar />
-      <Top />
+    <>     
+      <TicketList/>
     </>
   );
 };
