@@ -7,12 +7,14 @@ import PriorityIcon from "./PriorityIcon";
 import TicketCard from "./TicketCard";
 import { useCardContext } from "../context/CardContext";
 
+
+
 const TicketList = () => {
   const { data, grouping, ordering} = useCardContext();
+  
   const [orderedTickets, setOrderedTickets] = useState([]);
 
   useEffect(() => {
-    // Handle changes in grouping or ordering
     const groupedTickets = groupTickets(data.tickets, grouping, data.users, ordering);
     setOrderedTickets(groupedTickets);
   }, [data.tickets, grouping, ordering]);
@@ -82,7 +84,7 @@ const TicketList = () => {
       const userName = users.find((u) => u.id === user)?.name || "Unknown";
       const title = ticket.title;
       if (!grouped[user]) {
-        grouped[user] = { key: userName, tickets: [] };
+        grouped[user] = { key: userName, tickets: [],userId: user };
       }
       grouped[user].tickets.push({ ...ticket, title });
     });
@@ -134,6 +136,7 @@ const TicketList = () => {
             <div className="flex items-center">
               {grouping === "Status" && <Todo status={group.key} />}
               {grouping === "User" && <UserIcon user={getUserById(group.userId)} />}
+              {console.log(group.userId)}
               {grouping === "Priority" && <PriorityIcon priority={group.key} />}
               {grouping === "Priority" ? (
                 <h2 className="text-lg text-gray-500 font-medium pl-1">

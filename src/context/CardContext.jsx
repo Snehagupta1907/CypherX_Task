@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  useState,
   useEffect,
   useReducer,
 } from "react";
@@ -11,12 +10,12 @@ const CardContext = createContext();
 const initialState = {
   data: {},
   grouping: "Status",
-  ordering: "Priority", // Add ordering to the initial state
+  ordering: "Priority", 
   isLoading: true,
 };
 
 const SET_GROUPING = "SET_GROUPING";
-const SET_ORDERING = "SET_ORDERING"; // Add ordering action type
+const SET_ORDERING = "SET_ORDERING";
 const SET_DATA = "SET_DATA";
 const SET_LOADING = "SET_LOADING";
 
@@ -24,7 +23,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SET_GROUPING:
       return { ...state, grouping: action.payload };
-      case SET_ORDERING: // Handle ordering change
+      case SET_ORDERING: 
       return { ...state, ordering: action.payload };
     case SET_DATA:
       return { ...state, data: action.payload, isLoading: false };
@@ -69,7 +68,7 @@ export const CardProvider = ({ children }) => {
   const value = {
     data: state.data,
     grouping: state.grouping,
-    ordering: state.ordering, // Include ordering in the context
+    ordering: state.ordering, 
     isLoading: state.isLoading,
     actions: {
       setGrouping,
