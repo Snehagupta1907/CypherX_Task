@@ -5,6 +5,7 @@ import { IoMdPie } from "react-icons/io";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoIosCloseCircle } from "react-icons/io";
 
+// eslint-disable-next-line react/prop-types
 const Todo = ({ status, size  }) => {
   let IconComponent;
 

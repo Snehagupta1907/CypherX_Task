@@ -2,6 +2,7 @@ import "./App.css";
 import TicketCard from "./components/TicketCard";
 import Home from "./pages/Home";
 import { useCardContext } from "./context/CardContext";
+import TicketList from "./components/TicketList";
 
 function App() {
   const { data } = useCardContext();
@@ -14,8 +15,8 @@ function App() {
 
   return (
     <>
-      <Home />
-      {data.tickets.map((ticket) => (
+      {/* <Home /> */}
+      {/* {data.tickets.map((ticket) => (
         <TicketCard
           key={ticket.id}
           ticketId={ticket.id}
@@ -25,7 +26,8 @@ function App() {
           userId={ticket.userId}
           status={ticket.status}
         />
-      ))}
+      ))} */}
+      <TicketList/>
     </>
   );
 }

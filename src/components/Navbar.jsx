@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BiSun, BiMoon } from "react-icons/bi";
 import MultilevelDropdown from "./MultiLevelDropdown";
 
-const Navbar = () => {
+const Navbar = (setGroupBy, setSortBy ) => {
   const [isDarkMode, setDarkMode] = useState(false);
 
   const handleThemeToggle = () => {
@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <nav className="flex justify-between items-center py-2 px-4 bg-white text-white">
-      <MultilevelDropdown />
+      <MultilevelDropdown setGroupBy={setGroupBy} setSortBy={setSortBy} />
 
       <div className="flex items-center">
         <button

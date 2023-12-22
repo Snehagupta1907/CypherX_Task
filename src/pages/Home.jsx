@@ -1,16 +1,13 @@
-import Navbar from "../components/Navbar"
-
-
-
-import { IoAdd } from "react-icons/io5";
-
-
-
+import Navbar from "../components/Navbar";
+import Top from "../components/Top";
 
 const Home = () => {
   return (
-    <Navbar/>
-  )
-}
+    <>
+      <Navbar />
+      <Top />
+    </>
+  );
+};
 
-export default Home
+export default Home;

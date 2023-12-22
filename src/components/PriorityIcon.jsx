@@ -2,6 +2,7 @@ import { BsFilterLeft } from "react-icons/bs";
 import { RxBorderDashed } from "react-icons/rx";
 import { PiCellSignalHighBold,PiCellSignalMediumBold,PiCellSignalLowBold } from "react-icons/pi";
 import { TbAlertSquareFilled } from "react-icons/tb";
+// eslint-disable-next-line react/prop-types
 const PriorityIcon = ({priority}) => {
   let PriorComponent;
 

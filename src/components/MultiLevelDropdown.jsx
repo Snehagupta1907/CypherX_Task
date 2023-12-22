@@ -5,6 +5,29 @@ const MultilevelDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const buttonRef = useRef(null);
+  const dropdownRef = useRef(null);
+
+  const [groupBy, setGroupBy] = useState("Status"); // Default grouping option
+  const [sortBy, setSortBy] = useState("Title"); // Default sorting option
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (buttonRef.current) {
@@ -41,6 +64,7 @@ const MultilevelDropdown = () => {
       </button>
       {isOpen && (
         <div
+          ref={dropdownRef}
           style={{
             position: "absolute",
             top: position.top + "px",
@@ -50,16 +74,26 @@ const MultilevelDropdown = () => {
         >
           <div className=" mb-6">
             <div className="flex justify-between">
-              <label className="mt-3 ml-3 text-gray-500" >Grouping</label>
-              <select className="mt-3 mr-3 rounded border border-gray-200 text-gray-900" style={{ width: "90px" }}>
-                <option value="User">User</option>
+              <label className="mt-3 ml-3 text-gray-500">Grouping</label>
+              <select
+                className="mt-3 mr-3 rounded border border-gray-200 text-gray-900"
+                style={{ width: "90px" }}
+                value={groupBy}
+                onChange={(e) => setGroupBy(e.target.value)}
+              >
                 <option value="Status">Status</option>
+                <option value="User">User</option>
                 <option value="Priority">Priority</option>
               </select>
             </div>
             <div className="flex justify-between">
-              <label className="mt-5 ml-3 text-gray-500" >Ordering</label>
-              <select className="mt-5 mr-3 rounded border border-gray-200 text-gray-900" style={{ width: "90px" }}>
+              <label className="mt-5 ml-3 text-gray-500">Ordering</label>
+              <select
+                className="mt-5 mr-3 rounded border border-gray-200 text-gray-900"
+                style={{ width: "90px" }}
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
                 <option value="Title">Title</option>
                 <option value="Priority">Priority</option>
               </select>
