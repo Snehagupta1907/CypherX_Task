@@ -9,6 +9,8 @@ const MultilevelDropdown = () => {
   const buttonRef = useRef(null);
   const dropdownRef = useRef(null);
 
+  const [selectedOrdering, setSelectedOrdering] = useState("Title"); 
+
   const { grouping, actions } = useCardContext();
 
   
@@ -45,6 +47,11 @@ const MultilevelDropdown = () => {
   const handleGroupingChange = (event) => {
     const selectedGrouping = event.target.value;
     actions.setGrouping(selectedGrouping);
+  };
+
+  const handleOrderingChange = (event) => {
+    const selectedOrdering = event.target.value;
+    setSelectedOrdering(selectedOrdering);
   };
 
   return (
@@ -99,6 +106,8 @@ const MultilevelDropdown = () => {
               <select
                 className="mt-5 mr-3 rounded border border-gray-200 text-gray-900"
                 style={{ width: "90px" }}
+                value={selectedOrdering}
+                onChange={handleOrderingChange}
               >
                 <option value="Title">Title</option>
                 <option value="Priority">Priority</option>

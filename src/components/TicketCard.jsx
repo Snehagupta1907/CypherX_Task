@@ -19,6 +19,7 @@ const TicketCard = ({ id, title, priority, tag, userId, status }) => {
         <div className="flex items-center justify-between">
           <h1 className="text-gray-500 sm:text-lg dark:text-gray-400">{id}</h1>
           {grouping !== "User" && <UserIcon user={getUserById(userId)} />}
+          {/* {console.log(getUserById(userId))} */}
         </div>
         <div className="flex">
           {grouping !== "Status" && (

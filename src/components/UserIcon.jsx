@@ -2,6 +2,7 @@
 
 
 const UserIcon = ({ user }) => {
+  // console.log(user)
   const bgColorClass = user?.available ? "bg-yellow-400" : "bg-gray-400";
   const initials = user?.name
     .split(" ")

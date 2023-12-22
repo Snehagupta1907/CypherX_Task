@@ -1,20 +1,23 @@
-import { createContext, useContext, useState, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useReducer,
+} from "react";
 
 const CardContext = createContext();
 
-// Initial state
 const initialState = {
   data: {},
-  grouping: "Status", // default grouping
-  isLoading: true, // default loading state
+  grouping: "Status",
+  isLoading: true,
 };
 
-// Actions
 const SET_GROUPING = "SET_GROUPING";
 const SET_DATA = "SET_DATA";
 const SET_LOADING = "SET_LOADING";
 
-// Reducer function
 const reducer = (state, action) => {
   switch (action.type) {
     case SET_GROUPING:
@@ -33,7 +36,7 @@ export const CardProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: SET_LOADING, payload: true }); // Set loading to true
+      dispatch({ type: SET_LOADING, payload: true });
 
       try {
         const response = await fetch(
@@ -45,7 +48,6 @@ export const CardProvider = ({ children }) => {
         dispatch({ type: SET_DATA, payload: jsonData });
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle error if needed
       }
     };
 
@@ -67,12 +69,7 @@ export const CardProvider = ({ children }) => {
 
   return (
     <CardContext.Provider value={value}>
-      {state.isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        // Render children only when data is fetched
-        children
-      )}
+      {state.isLoading ? <p>Loading...</p> : children}
     </CardContext.Provider>
   );
 };

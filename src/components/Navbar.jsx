@@ -1,4 +1,3 @@
-// Navbar.js
 import { useState } from "react";
 import { BiSun, BiMoon } from "react-icons/bi";
 import MultilevelDropdown from "./MultiLevelDropdown";
@@ -8,7 +7,6 @@ const Navbar = () => {
 
   const handleThemeToggle = () => {
     setDarkMode(!isDarkMode);
-    // Add logic to toggle your dark/light theme
   };
 
   return (

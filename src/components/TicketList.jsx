@@ -9,19 +9,36 @@ import PriorityIcon from "./PriorityIcon";
 const TicketList = () => {
   const { data, grouping } = useCardContext();
 
-  // Filter and group tickets based on the selected grouping
   const groupedTickets = groupTickets(data.tickets, grouping, data.users);
+
+  const getUserById = (userId) => {
+    return data.users.find((user) => user.id === userId) || { name: "Unknown" };
+  };
+
+  const priorities = [
+    { key: 0, value: 'No Priority' },
+    { key: 1, value: 'Low' },
+    { key: 2, value: 'Medium' },
+    { key: 3, value: 'High' },
+    { key: 4, value: 'Urgent' },
+  ];
 
   return (
     <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
       {groupedTickets.map((group) => (
         <div key={group.key}>
-          {/* {console.log(group.tickets.status)} */}
+          
           <div className="flex items-center justify-between  md:max-w-[250px] pb-2">
             <div className="flex items-center">
-              {/* {console.log(grouping)} */}
-              <Todo status={group.key} />
-              <h2 className="text-lg text-gray-500 font-medium pl-1">{group.key}</h2>
+              {grouping==="Status" && <Todo status={group.key} />}
+              {grouping==="User"  && <UserIcon user={getUserById(group.userId)} />}
+              {console.log(group)}
+              {grouping==="Priority" && <PriorityIcon priority={group.key}  />}
+              {grouping === "Priority" ? (
+                <h2 className="text-lg text-gray-500 font-medium pl-1">{priorities.find(item => item.key === group.key)?.value}</h2>
+              ) : (
+                <h2 className="text-lg text-gray-500 font-medium pl-1">{group.key}</h2>
+              )}
               <span className="ml-2 text-sm text-gray-500">
                 {group.tickets.length} 
               </span>
@@ -40,9 +57,7 @@ const TicketList = () => {
   );
 };
 
-// Helper function to group tickets based on the selected grouping
 const groupTickets = (tickets, grouping, users) => {
-  // Implement logic to group tickets based on the selected grouping
   switch (grouping) {
     case "Status":
       return groupByStatus(tickets);
@@ -56,7 +71,6 @@ const groupTickets = (tickets, grouping, users) => {
 };
 
 const groupByStatus = (tickets) => {
-  // Placeholder logic to group by status
   const grouped = {};
   tickets.forEach((ticket) => {
     const status = ticket.status || "Unknown";
@@ -69,13 +83,12 @@ const groupByStatus = (tickets) => {
 };
 
 const groupByUser = (tickets, users) => {
-  // Placeholder logic to group by user
   const grouped = {};
   tickets.forEach((ticket) => {
     const user = ticket.userId ? ticket.userId : "Unknown";
     const userName = users.find((u) => u.id === user)?.name || "Unknown";
     if (!grouped[user]) {
-      grouped[user] = { key: userName, tickets: [] };
+      grouped[user] = { key: userName, tickets: [],userId:user };
     }
     grouped[user].tickets.push(ticket);
   });
@@ -83,7 +96,6 @@ const groupByUser = (tickets, users) => {
 };
 
 const groupByPriority = (tickets) => {
-  // Placeholder logic to group by priority
   const grouped = {};
   tickets.forEach((ticket) => {
     const priority = ticket.priority || 0;

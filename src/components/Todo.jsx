@@ -26,7 +26,7 @@ const Todo = ({ status, size  }) => {
       IconComponent = IoIosCloseCircle;
       break;
     default:
-      IconComponent = FaRegCircle; // Default to a circle icon
+      IconComponent = FaRegCircle; 
       break;
   }
 
