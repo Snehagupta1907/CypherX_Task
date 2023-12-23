@@ -29,8 +29,8 @@ const PriorityIcon = ({priority}) => {
 
   return (
     
-    <div className="border border-gray-200 rounded">
-        <PriorComponent className={`text-lg ${PriorComponent === TbAlertSquareFilled ? 'text-orange-500' : ''} `}/>
+    <div className="border border-gray-500 dark:border-gray-200  rounded">
+        <PriorComponent className={`text-lg ${PriorComponent === TbAlertSquareFilled ? 'text-orange-500' : 'text-gray-600'} ${PriorComponent === TbAlertSquareFilled ? 'dark:text-orange-500' : 'dark:text-white'} `}/>
     </div>
   )
 }
