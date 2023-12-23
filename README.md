@@ -29,7 +29,7 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/cypherx-kanban-board.git
+    git clone https://github.com/Snehagupta1907/CypherX_Task
     ```
 
 2. Navigate to the project directory:
