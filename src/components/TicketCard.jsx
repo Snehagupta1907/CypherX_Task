@@ -15,7 +15,7 @@ const TicketCard = ({ id, title, priority, tag, userId, status }) => {
 
   return (
     <>
-      <div className="w-full md:max-w-[250px] bg-white border border-gray-200 rounded-lg shadow p-2 md:p-4 dark:bg-gray-800 dark:border-gray-700 text-gray-500 mb-3">
+      <div className="w-full md:max-w-[250px] bg-white border border-gray-200 rounded-lg shadow p-2 md:p-4 dark:bg-gray-900 dark:border-gray-700 text-gray-500 mb-3">
         <div className="flex items-center justify-between">
           <h1 className="text-gray-500 sm:text-lg dark:text-gray-400">{id}</h1>
           {grouping !== "User" && <UserIcon user={getUserById(userId)} />}
@@ -27,13 +27,13 @@ const TicketCard = ({ id, title, priority, tag, userId, status }) => {
               <Todo status={status} size="12px" />
             </div>
           )}
-          <p className="mb-5 font-medium text-black text-sm">{title}</p>
+          <p className="mb-5 font-medium text-black text-sm dark:text-white">{title}</p>
         </div>
         <div className="flex items-center">
           {grouping !== "Priority" && <PriorityIcon priority={priority} />}
 
-          <div className="border border-gray-300 ml-2 px-2 text-sm flex flex-row items-center">
-            <FaCircle className="mr-2 w-2.5" />
+          <div className="border border-gray-300 ml-2 px-2 text-sm flex flex-row items-center dark:text-gray-400">
+            <FaCircle className="mr-2 w-2.5 dark:text-gray-400" />
             {tag}
           </div>
         </div>

@@ -1,16 +1,11 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 const CardContext = createContext();
 
 const initialState = {
   data: {},
   grouping: "Status",
-  ordering: "Priority", 
+  ordering: "Priority",
   isLoading: true,
 };
 
@@ -22,8 +17,10 @@ const SET_LOADING = "SET_LOADING";
 const reducer = (state, action) => {
   switch (action.type) {
     case SET_GROUPING:
+      localStorage.setItem("grouping", action.payload);
       return { ...state, grouping: action.payload };
-      case SET_ORDERING: 
+    case SET_ORDERING:
+      localStorage.setItem("ordering", action.payload);
       return { ...state, ordering: action.payload };
     case SET_DATA:
       return { ...state, data: action.payload, isLoading: false };
@@ -34,10 +31,22 @@ const reducer = (state, action) => {
   }
 };
 
+// eslint-disable-next-line react/prop-types
 export const CardProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    const storedGrouping = localStorage.getItem("grouping");
+    const storedOrdering = localStorage.getItem("ordering");
+
+    if (storedGrouping) {
+      dispatch({ type: SET_GROUPING, payload: storedGrouping });
+    }
+
+    if (storedOrdering) {
+      dispatch({ type: SET_ORDERING, payload: storedOrdering });
+    }
+
     const fetchData = async () => {
       dispatch({ type: SET_LOADING, payload: true });
 
@@ -68,7 +77,7 @@ export const CardProvider = ({ children }) => {
   const value = {
     data: state.data,
     grouping: state.grouping,
-    ordering: state.ordering, 
+    ordering: state.ordering,
     isLoading: state.isLoading,
     actions: {
       setGrouping,
@@ -85,6 +94,5 @@ export const CardProvider = ({ children }) => {
 
 export const useCardContext = () => {
   const context = useContext(CardContext);
-
   return context;
 };

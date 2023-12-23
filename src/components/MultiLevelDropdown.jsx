@@ -89,7 +89,7 @@ const MultilevelDropdown = () => {
                 Grouping
               </label>
               <select
-                className="mt-3 mr-3 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300"
+                className="mt-3 mr-3 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:bg-black dark:text-gray-300"
                 style={{ width: "90px" }}
                 value={grouping}
                 onChange={handleGroupingChange}
@@ -104,7 +104,7 @@ const MultilevelDropdown = () => {
                 Ordering
               </label>
               <select
-                className="mt-5 mr-3 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-300"
+                className="mt-5 mr-3 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:bg-black dark:text-gray-300"
                 style={{ width: "90px" }}
                 value={ordering}
                 onChange={handleOrderingChange}

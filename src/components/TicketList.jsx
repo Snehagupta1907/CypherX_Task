@@ -129,7 +129,7 @@ const TicketList = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 dark:bg-black bg-gray-300 pt-6 px-9">
       {orderedTickets.map((group) => (
         <div key={group.key}>
           <div className="flex items-center justify-between  md:max-w-[250px] pb-2">
@@ -139,13 +139,13 @@ const TicketList = () => {
               {console.log(group.userId)}
               {grouping === "Priority" && <PriorityIcon priority={group.key} />}
               {grouping === "Priority" ? (
-                <h2 className="text-lg text-gray-500 font-medium pl-1">
+                <h2 className="text-lg text-gray-500 font-medium pl-1 dark:text-white">
                   {priorities.find((item) => item.key === group.key)?.value}
                 </h2>
               ) : (
-                <h2 className="text-lg text-gray-500 font-medium pl-1">{group.key}</h2>
+                <h2 className="text-lg text-gray-500 font-medium pl-1 dark:text-white">{group.key}</h2>
               )}
-              <span className="ml-2 text-sm text-gray-500">
+              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
                 {group.tickets.length}
               </span>
             </div>
