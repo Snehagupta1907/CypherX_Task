@@ -53,16 +53,23 @@ const TicketList = () => {
 
   const groupByStatus = (tickets, ordering) => {
     const grouped = {};
+    const customStatuses = ["Todo", "Backlog", "In progress", "Done", "Cancelled"];
+
+    customStatuses.forEach((customStatus) => {
+      grouped[customStatus] = { key: customStatus, tickets: [] };
+    });
+  
     tickets.forEach((ticket) => {
       const status = ticket.status || "Unknown";
       const title = ticket.title;
+  
       if (!grouped[status]) {
         grouped[status] = { key: status, tickets: [] };
       }
+  
       grouped[status].tickets.push({ ...ticket, title });
     });
-
-
+  
     Object.values(grouped).forEach((group) => {
       group.tickets.sort((a, b) => {
         if (ordering === "Priority") {
@@ -73,9 +80,10 @@ const TicketList = () => {
         return 0;
       });
     });
-
+  
     return Object.values(grouped);
   };
+  
 
   const groupByUser = (tickets, users, ordering) => {
     const grouped = {};
