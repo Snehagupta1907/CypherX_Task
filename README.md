@@ -13,7 +13,7 @@ This repository contains the solution for the CypherX Task Assignment, an intera
 
 ## Demo
 
-Check out the live demo of the CypherX Kanban Board [here]([https://your-live-demo-url](https://cypher-x-task.vercel.app/)).
+Check out the live demo of the CypherX Kanban Board [https://cypher-x-task.vercel.app/](https://cypher-x-task.vercel.app/).
 
 ## Getting Started
 
